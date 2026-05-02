@@ -27,3 +27,8 @@ export interface DatePickerProps {
   currentDate: Date;
   setCurrentDate: (date: Date) => void;
 }
+
+export interface PageErrorProps {
+  err: string | null;
+  onRetry?: () => void;
+}
