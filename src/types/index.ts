@@ -1,21 +1,10 @@
+import type { Match } from "./match";
+
 export interface Team {
   id: string;
   name: string;
   logo: string;
   shortName?: string;
-}
-
-export interface Match {
-  id: string;
-  homeTeam: Team;
-  awayTeam: Team;
-  homeScore: number;
-  awayScore: number;
-  status: "live" | "finished" | "scheduled";
-  date: string;
-  time?: string;
-  league: string;
-  minute?: number;
 }
 
 export interface MatchEvent {
@@ -31,4 +20,10 @@ export interface League {
   id: string;
   name: string;
   matches: Match[];
+}
+
+export interface DatePickerProps {
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  currentDate: Date;
+  setCurrentDate: React.Dispatch<React.SetStateAction<Date>>;
 }
