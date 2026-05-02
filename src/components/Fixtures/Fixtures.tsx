@@ -3,18 +3,30 @@ import { MatchCard } from "../match/Card";
 import { Badge } from "@/components/ui/badge";
 import { DateSlider } from "./DateSlider";
 import { Skeleton } from "../ui/skeleton";
-import { useMatches } from "@/context/Matches";
+import type { FixturesProps } from "@/types/match";
+import { useLocation } from "react-router-dom";
+import PageErrors from "../PageErrors";
 
-export function Fixtures() {
-  const { groupedMatches, loading, error } = useMatches();
+export function Fixtures({
+  groupedMatches = {},
+  loading = false,
+  error = null,
+  isLive = true,
+}: FixturesProps) {
+  const param = useLocation();
   const hasMatches = Object.keys(groupedMatches).length > 0;
+
+  if (error) return <PageErrors err={error} />;
 
   return (
     <div className="bg-background min-h-screen text-foreground">
       <div className="max-w-6xl mx-auto px-4 py-6">
-        <h1 className="hidden md:block text-2xl font-bold mb-8">Matches</h1>
-
-        <DateSlider />
+        <h1 className="hidden md:block text-2xl font-bold mb-8">
+          {param?.pathname === "/"
+            ? "LIVE MATCHES"
+            : param?.pathname.split("/")[1].toUpperCase().replace("-", " ")}
+        </h1>
+        {!isLive && <DateSlider />}
         {loading ? (
           <>
             <div className="flex justify-start gap-3 md:gap-4 mb-8 ">
@@ -27,43 +39,41 @@ export function Fixtures() {
               <Skeleton className="h-56 w-full" />
             </div>
           </>
-        ) : error ? (
-          <div className="flex justify-center items-center py-12">
-            <p className="text-destructive text-lg">
-              Error: {error || "Data Error, wait a bit and try again"}
-            </p>
-          </div>
         ) : !hasMatches ? (
           <div className="flex justify-center items-center py-12">
-            <p className="text-gray-400 text-lg">No matches found for this date</p>
+            <p className="text-gray-400 text-lg">
+              {`No ${isLive ? "live" : "upcoming"} matches found for this date`}
+            </p>
           </div>
         ) : (
           <>
-            <div className="flex justify-start gap-3 md:gap-4 mb-8">
-              <div className="flex items-center gap-2 bg-primary text-black px-2 md:px-4 py-2 rounded-lg text-sm font-medium">
-                <span>All</span>
-                <Badge className="bg-black text-white text-xs">
-                  {" "}
-                  {Object.values(groupedMatches).flat().length}
-                </Badge>
+            {!isLive && (
+              <div className="flex justify-start gap-3 md:gap-4 mb-8">
+                <div className="flex items-center gap-2 bg-primary text-black px-2 md:px-4 py-2 rounded-lg text-sm font-medium">
+                  <span>All</span>
+                  <Badge className="bg-black text-white text-xs">
+                    {" "}
+                    {Object.values(groupedMatches).flat().length}
+                  </Badge>
+                </div>
+                <div className="flex items-center gap-2 bg-gray-700 text-white px-2 md:px-4 py-2 rounded-lg text-sm">
+                  <Radio className="w-4 h-4" />
+                  <span>Live</span>
+                  <Badge className="bg-gray-600 text-white text-xs">
+                    {
+                      Object.values(groupedMatches)
+                        .flat()
+                        .filter((m) => m.status === "live").length
+                    }
+                  </Badge>
+                </div>
+                <div className="flex items-center gap-2 bg-gray-700 text-white px-2 md:px-4 py-2 rounded-lg text-sm">
+                  <Heart className="w-4 h-4" />
+                  <span>Favorites</span>
+                  <Badge className="bg-gray-600 text-white text-xs">0</Badge>
+                </div>
               </div>
-              <div className="flex items-center gap-2 bg-gray-700 text-white px-2 md:px-4 py-2 rounded-lg text-sm">
-                <Radio className="w-4 h-4" />
-                <span>Live</span>
-                <Badge className="bg-gray-600 text-white text-xs">
-                  {
-                    Object.values(groupedMatches)
-                      .flat()
-                      .filter((m) => m.status === "live").length
-                  }
-                </Badge>
-              </div>
-              <div className="flex items-center gap-2 bg-gray-700 text-white px-2 md:px-4 py-2 rounded-lg text-sm">
-                <Heart className="w-4 h-4" />
-                <span>Favorites</span>
-                <Badge className="bg-gray-600 text-white text-xs">0</Badge>
-              </div>
-            </div>
+            )}
             <div className="space-y-6">
               {Object.entries(groupedMatches).map(([league, matches]) => (
                 <div key={league} className="bg-muted px-6 py-4 rounded-lg">

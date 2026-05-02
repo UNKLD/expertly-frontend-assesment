@@ -9,3 +9,5 @@ export const MATCH_EVENTS_DAY = `${import.meta.env.VITE_BASE_URL}/eventsday.php?
 export const LOOKUP_EVENT = `${import.meta.env.VITE_BASE_URL}/lookupevent.php?id=`;
 
 export const LOOKUP_TIMELINE = `${import.meta.env.VITE_BASE_URL}/lookuptimeline.php?id=`;
+
+export const LIVE_EVENTS_URL = `${import.meta.env.VITE_BASE_URL}/liveevents.php`;

@@ -1,3 +1,5 @@
+import ComingSoon from "@/components/ComingSoon";
+
 export const Statistics = () => {
-  return <div>Statistics</div>;
+  return <ComingSoon />;
 };

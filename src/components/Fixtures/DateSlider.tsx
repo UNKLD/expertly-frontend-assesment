@@ -1,26 +1,20 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useState } from "react";
 import { DatePicker } from "./DatePicker";
 import { useMatches } from "@/context/Matches";
 
 export const DateSlider = () => {
   const { currentDate, setCurrentDate } = useMatches();
-  const [open, setOpen] = useState(false);
 
   const handlePrevDay = () => {
-    setCurrentDate((prevDate) => {
-      const newDate = new Date(prevDate);
-      newDate.setDate(newDate.getDate() - 1);
-      return newDate;
-    });
+    const newDate = new Date(currentDate);
+    newDate.setDate(newDate.getDate() - 1);
+    setCurrentDate(newDate);
   };
 
   const handleNextDay = () => {
-    setCurrentDate((prevDate) => {
-      const newDate = new Date(prevDate);
-      newDate.setDate(newDate.getDate() + 1);
-      return newDate;
-    });
+    const newDate = new Date(currentDate);
+    newDate.setDate(newDate.getDate() + 1);
+    setCurrentDate(newDate);
   };
 
   const formatDateForDisplay = (date: Date) => {
@@ -68,17 +62,13 @@ export const DateSlider = () => {
   };
   return (
     <>
-      <div className="hidden md:flex items-center justify-between gap-4 mb-8 bg-muted py-4 rounded-lg px-4">
+      <div className="hidden md:flex items-center justify-between gap-4 mb-8 bg-muted py-5 rounded-lg px-4">
         <ChevronLeft
           onClick={handlePrevDay}
           className="w-5 h-5 text-gray-400 cursor-pointer hover:text-white"
         />
         <div className="flex items-center gap-2">
-          <DatePicker
-            setOpen={setOpen}
-            currentDate={currentDate}
-            setCurrentDate={setCurrentDate}
-          />
+          <DatePicker currentDate={currentDate} setCurrentDate={setCurrentDate} />
           <span className="font-medium">{formatDateForDisplay(currentDate)}</span>
         </div>
         <ChevronRight
@@ -113,11 +103,7 @@ export const DateSlider = () => {
             </span>
           );
         })}
-        <DatePicker
-          setOpen={setOpen}
-          currentDate={currentDate}
-          setCurrentDate={setCurrentDate}
-        />
+        <DatePicker currentDate={currentDate} setCurrentDate={setCurrentDate} />
       </div>
     </>
   );

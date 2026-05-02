@@ -1,3 +1,5 @@
+import ComingSoon from "@/components/ComingSoon";
+
 export const Teams = () => {
-  return <div>Teams</div>;
+  return <ComingSoon />;
 };

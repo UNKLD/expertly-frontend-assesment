@@ -3,7 +3,7 @@ import { CalendarDays } from "lucide-react";
 import { Calendar } from "../ui/calendar";
 import type { DatePickerProps } from "@/types";
 
-export const DatePicker = ({ setOpen, currentDate, setCurrentDate }: DatePickerProps) => {
+export const DatePicker = ({ currentDate, setCurrentDate }: DatePickerProps) => {
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -23,7 +23,6 @@ export const DatePicker = ({ setOpen, currentDate, setCurrentDate }: DatePickerP
           onMonthChange={setCurrentDate}
           onSelect={(date) => {
             setCurrentDate(date ?? currentDate);
-            setOpen(false);
           }}
         />
       </PopoverContent>
