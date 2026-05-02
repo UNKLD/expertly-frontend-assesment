@@ -1,5 +1,15 @@
 import { Fixtures } from "@/components/Fixtures/Fixtures";
+import { useMatches } from "@/context/Matches";
 
 export const Matches = () => {
-  return <Fixtures />;
+  const { groupedMatches, loading, error, refetch } = useMatches();
+  return (
+    <Fixtures
+      groupedMatches={groupedMatches}
+      loading={loading}
+      error={error}
+      isLive={false}
+      refetch={refetch}
+    />
+  );
 };

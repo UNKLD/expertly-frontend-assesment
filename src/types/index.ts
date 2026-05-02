@@ -25,5 +25,5 @@ export interface League {
 export interface DatePickerProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   currentDate: Date;
-  setCurrentDate: React.Dispatch<React.SetStateAction<Date>>;
+  setCurrentDate: (date: Date) => void;
 }

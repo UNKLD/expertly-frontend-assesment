@@ -73,6 +73,7 @@ const useFetchMatches = (
           date: event.dateEvent,
           time: event.strTime,
           league: event.strLeague,
+          country: event.strCountry,
         }),
       );
     },

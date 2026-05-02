@@ -68,7 +68,11 @@ export const DateSlider = () => {
           className="w-5 h-5 text-gray-400 cursor-pointer hover:text-white"
         />
         <div className="flex items-center gap-2">
-          <DatePicker currentDate={currentDate} setCurrentDate={setCurrentDate} />
+          <DatePicker
+            currentDate={currentDate}
+            setCurrentDate={setCurrentDate}
+            setOpen={() => {}}
+          />
           <span className="font-medium">{formatDateForDisplay(currentDate)}</span>
         </div>
         <ChevronRight
@@ -103,7 +107,11 @@ export const DateSlider = () => {
             </span>
           );
         })}
-        <DatePicker currentDate={currentDate} setCurrentDate={setCurrentDate} />
+        <DatePicker
+          currentDate={currentDate}
+          setCurrentDate={setCurrentDate}
+          setOpen={() => {}}
+        />
       </div>
     </>
   );
