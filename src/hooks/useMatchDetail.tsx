@@ -8,6 +8,7 @@ import type {
   TimelineEvent,
   UseMatchDetailResult,
 } from "@/types/matchDetails";
+import type { HookError } from "@/types";
 
 const useMatchDetail = (matchId: string): UseMatchDetailResult => {
   const [matchDetail, setMatchDetail] = useState<MatchDetail | null>(null);
@@ -17,6 +18,7 @@ const useMatchDetail = (matchId: string): UseMatchDetailResult => {
   const mountedRef = useRef<boolean>(true);
   const attemptsRef = useRef<number>(0);
   const abortRef = useRef<AbortController | null>(null);
+  const intervalRef = useRef<number | null>(null);
 
   const MAX_RETRIES = 2;
   const INITIAL_BACKOFF_MS = 1000;
@@ -30,6 +32,16 @@ const useMatchDetail = (matchId: string): UseMatchDetailResult => {
       }
       abortRef.current = null;
     }
+  }, []);
+
+  const isLiveMatch = useCallback((status: string): boolean => {
+    const lowerStatus = status.toLowerCase();
+    return (
+      lowerStatus.includes("live") ||
+      lowerStatus.includes("'") ||
+      lowerStatus.includes("1h") ||
+      lowerStatus.includes("2h")
+    );
   }, []);
 
   const fetchOnce = useCallback(
@@ -91,7 +103,7 @@ const useMatchDetail = (matchId: string): UseMatchDetailResult => {
 
   const performFetchWithRetries = useCallback(
     async (isInitial = true) => {
-      if (!matchId) {
+      if (!matchId || !mountedRef.current) {
         setMatchDetail(null);
         setError(null);
         setLoading(false);
@@ -102,7 +114,7 @@ const useMatchDetail = (matchId: string): UseMatchDetailResult => {
       const controller = new AbortController();
       abortRef.current = controller;
 
-      if (isInitial) setLoading(true);
+      if (isInitial && mountedRef.current) setLoading(true);
       setError(null);
 
       while (attemptsRef.current <= MAX_RETRIES && mountedRef.current) {
@@ -116,10 +128,7 @@ const useMatchDetail = (matchId: string): UseMatchDetailResult => {
         } catch (err) {
           if (!mountedRef.current) return;
 
-          if (
-            (err as any)?.name === "CanceledError" ||
-            (err as any)?.code === "ERR_CANCELED"
-          ) {
+          if ((err as HookError)?.name === "CanceledError" || (err as HookError)?.code === "ERR_CANCELED") {
             return;
           }
 
@@ -127,7 +136,9 @@ const useMatchDetail = (matchId: string): UseMatchDetailResult => {
           attemptsRef.current += 1;
 
           if (attemptsRef.current > MAX_RETRIES) {
-            setError(axiosErr?.message ?? "Failed to fetch match details");
+            if (mountedRef.current) {
+              setError(axiosErr?.message ?? "Failed to fetch match details");
+            }
             break;
           }
 
@@ -141,7 +152,7 @@ const useMatchDetail = (matchId: string): UseMatchDetailResult => {
         }
       }
 
-      if (isInitial) setLoading(false);
+      if (isInitial && mountedRef.current) setLoading(false);
     },
     [matchId, fetchOnce, clearAbort],
   );
@@ -162,13 +173,41 @@ const useMatchDetail = (matchId: string): UseMatchDetailResult => {
   useEffect(() => {
     mountedRef.current = true;
     attemptsRef.current = 0;
+    // eslint-disable-next-line
     performFetchWithRetries(true);
 
     return () => {
       mountedRef.current = false;
       clearAbort();
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
     };
   }, [matchId, performFetchWithRetries, clearAbort]);
+
+  useEffect(() => {
+    const isMatchDetailPage = window.location.pathname.includes("/match/");
+
+    if (matchDetail && isLiveMatch(matchDetail.status) && isMatchDetailPage) {
+      intervalRef.current = setInterval(() => {
+        if (mountedRef.current) {
+          attemptsRef.current = 0;
+          performFetchWithRetries(false);
+        }
+      }, 20000);
+    } else if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    };
+  }, [matchDetail, performFetchWithRetries, isLiveMatch]);
 
   return { matchDetail, loading, error, refetch, retry };
 };

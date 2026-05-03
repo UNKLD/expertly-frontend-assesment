@@ -8,11 +8,9 @@ import type {
   UseFetchMatchesResult,
 } from "@/types/match";
 import { MATCH_EVENTS_DAY } from "@/lib/data/constant-api-path";
+import type { HookError } from "@/types";
 
-const useFetchLiveMatches = (
-  sport: string = "Soccer",
-  refreshInterval: number = 20000,
-): UseFetchMatchesResult => {
+const useFetchLiveMatches = (sport: string = "Soccer", refreshInterval: number = 20000): UseFetchMatchesResult => {
   const [matches, setMatches] = useState<NormalizedMatch[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -35,7 +33,13 @@ const useFetchLiveMatches = (
   const normalizeStatus = (status: string): MatchStatus => {
     const lowerStatus = status.toLowerCase();
     if (lowerStatus.includes("finished") || lowerStatus.includes("ft")) return "finished";
-    if (lowerStatus.includes("live") || lowerStatus.includes("'")) return "live";
+    if (
+      lowerStatus.includes("live") ||
+      lowerStatus.includes("'") ||
+      lowerStatus.includes("1h") ||
+      lowerStatus.includes("2h")
+    )
+      return "live";
     return "scheduled";
   };
 
@@ -100,10 +104,7 @@ const useFetchLiveMatches = (
       } catch (err) {
         if (!mountedRef.current) return;
 
-        if (
-          (err as any)?.name === "CanceledError" ||
-          (err as any)?.code === "ERR_CANCELED"
-        ) {
+        if ((err as HookError)?.name === "CanceledError" || (err as HookError)?.code === "ERR_CANCELED") {
           return;
         }
 
@@ -129,6 +130,7 @@ const useFetchLiveMatches = (
 
   useEffect(() => {
     mountedRef.current = true;
+    // eslint-disable-next-line
     performFetch(true);
 
     if (refreshInterval > 0) {

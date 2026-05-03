@@ -29,12 +29,8 @@ export function MatchDetails() {
         isHome: event?.isHome,
       })) || [];
 
-  const homeCards = timelineEvents.filter(
-    (event) => event.isHome && event.eventType === "card",
-  );
-  const awayCards = timelineEvents.filter(
-    (event) => !event.isHome && event.eventType === "card",
-  );
+  const homeCards = timelineEvents.filter((event) => event.isHome && event.eventType === "card");
+  const awayCards = timelineEvents.filter((event) => !event.isHome && event.eventType === "card");
 
   const getCardCounts = (cards: any[]) => ({
     yellowCards: cards.filter((card) => card.detail === "Yellow Card").length,
@@ -71,14 +67,9 @@ export function MatchDetails() {
                 <div className="flex flex-col gap-4 items-center">
                   <div className="relative">
                     <Avatar className="h-24 w-24">
-                      <AvatarImage
-                        src={matchDetail?.homeTeam.logo}
-                        alt={matchDetail?.homeTeam.name}
-                      />
+                      <AvatarImage src={matchDetail?.homeTeam.logo} alt={matchDetail?.homeTeam.name} />
                       <AvatarFallback>
-                        <span className="text-white text-xs font-bold">
-                          {matchDetail?.homeTeam.name.slice(0, 2)}
-                        </span>
+                        <span className="text-white text-xs font-bold">{matchDetail?.homeTeam.name.slice(0, 2)}</span>
                       </AvatarFallback>
                     </Avatar>
                     <div className="absolute -top-2 -right-2 flex gap-1">
@@ -94,24 +85,16 @@ export function MatchDetails() {
                       )}
                     </div>
                   </div>
-                  <span className="text-sm md:text-lg font-semibold">
-                    {matchDetail?.homeTeam?.name}
-                  </span>
+                  <span className="text-sm md:text-lg font-semibold">{matchDetail?.homeTeam?.name}</span>
                 </div>
                 <div className="text-center">
                   <div className="text-muted-foreground text-sm mb-2">
                     {matchDetail?.date && formatDate(matchDetail?.date)}
                   </div>
                   <div className="lg:text-4xl text-xl font-bold mb-2">
-                    <span>
-                      {matchDetail?.status !== "Not Started" && matchDetail?.homeScore}
-                    </span>
-                    <span className="mx-2">
-                      {matchDetail?.status === "Not Started" ? "vs" : "-"}
-                    </span>
-                    <span>
-                      {matchDetail?.status !== "Not Started" && matchDetail?.awayScore}
-                    </span>
+                    <span>{matchDetail?.status !== "Not Started" && matchDetail?.homeScore}</span>
+                    <span className="mx-2">{matchDetail?.status === "Not Started" ? "vs" : "-"}</span>
+                    <span>{matchDetail?.status !== "Not Started" && matchDetail?.awayScore}</span>
                   </div>
                   <Badge
                     variant={
@@ -137,10 +120,7 @@ export function MatchDetails() {
                 <div className="flex flex-col gap-4 items-center">
                   <div className="relative">
                     <Avatar className="h-24 w-24">
-                      <AvatarImage
-                        src={matchDetail?.awayTeam.logo}
-                        alt={matchDetail?.awayTeam.name}
-                      />
+                      <AvatarImage src={matchDetail?.awayTeam.logo} alt={matchDetail?.awayTeam.name} />
                       <AvatarFallback>
                         <span className="text-foreground text-xs font-bold">
                           {matchDetail?.awayTeam.name.slice(0, 2)}
@@ -160,9 +140,7 @@ export function MatchDetails() {
                       )}
                     </div>
                   </div>
-                  <span className="text-sm md:text-lg font-semibold">
-                    {matchDetail?.awayTeam?.name}
-                  </span>
+                  <span className="text-sm md:text-lg font-semibold">{matchDetail?.awayTeam?.name}</span>
                 </div>
               </div>
             </div>
@@ -173,9 +151,7 @@ export function MatchDetails() {
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
                   className={`pb-3 ${
-                    activeTab === tab.id
-                      ? "border-b-2 border-green-400"
-                      : "text-gray-400 hover:text-white"
+                    activeTab === tab.id ? "border-b-2 border-green-400" : "text-gray-400 hover:text-white"
                   }`}
                 >
                   {tab.label}
@@ -196,9 +172,11 @@ export function MatchDetails() {
                   </div>
                 ) : (
                   <div className="flex flex-col justify-center items-center">
-                    <div className="text-center text-gray-400 text-sm mb-4">
-                      Fulltime {`${matchDetail?.awayScore} - ${matchDetail?.homeScore}`}
-                    </div>
+                    {matchDetail?.status === "Match Finished" && (
+                      <div className="text-center text-gray-400 text-sm mb-4">
+                        Fulltime {`${matchDetail?.homeScore} - ${matchDetail?.awayScore}`}
+                      </div>
+                    )}
                     <EventTimeline events={timelineEvents} />
                     <div className="flex justify-center items-center">
                       <span className="text-sm text-muted-foreground whitespace-nowrap px-4">
@@ -211,8 +189,7 @@ export function MatchDetails() {
             )}
             {activeTab !== "events" && (
               <div className="text-center text-gray-400 py-8">
-                {activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} content coming
-                soon
+                {activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} content coming soon
               </div>
             )}
           </div>

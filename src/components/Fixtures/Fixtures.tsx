@@ -59,9 +59,7 @@ export function Fixtures({
     <div className="bg-background min-h-screen text-foreground">
       <div className="max-w-6xl mx-auto px-4 py-6">
         <h1 className="hidden md:block text-2xl font-bold mb-8">
-          {param?.pathname === "/"
-            ? "LIVE MATCHES"
-            : param?.pathname.split("/")[1].toUpperCase().replace("-", " ")}
+          {param?.pathname === "/" ? "LIVE MATCHES" : param?.pathname.split("/")[1].toUpperCase().replace("-", " ")}
         </h1>
         {!isLive && <DateSlider />}
         {loading ? (
@@ -78,9 +76,7 @@ export function Fixtures({
           </>
         ) : !hasMatches ? (
           <div className="flex justify-center items-center py-12">
-            <p className="text-gray-400 text-lg">
-              {`No ${isLive ? "live" : "upcoming"} matches found for this date`}
-            </p>
+            <p className="text-gray-400 text-lg">{`No ${isLive ? "live" : "upcoming"} matches found for this date`}</p>
           </div>
         ) : (
           <>
@@ -88,18 +84,14 @@ export function Fixtures({
               <div className="flex justify-start gap-3 md:gap-4 mb-8">
                 <div
                   className={`flex items-center gap-2 px-2 md:px-4 py-2 rounded-lg text-sm font-medium cursor-pointer ${
-                    activeFilter === "all"
-                      ? "bg-primary text-black"
-                      : "bg-gray-700 text-white"
+                    activeFilter === "all" ? "bg-primary text-black" : "bg-gray-700 text-white"
                   }`}
                   onClick={() => setActiveFilter("all")}
                 >
                   <span>All</span>
                   <Badge
                     className={
-                      activeFilter === "all"
-                        ? "bg-black text-white text-xs"
-                        : "bg-gray-600 text-white text-xs"
+                      activeFilter === "all" ? "bg-black text-white text-xs" : "bg-gray-600 text-white text-xs"
                     }
                   >
                     {allMatches.length}
@@ -107,9 +99,7 @@ export function Fixtures({
                 </div>
                 <div
                   className={`flex items-center gap-2 px-2 md:px-4 py-2 rounded-lg text-sm cursor-pointer ${
-                    activeFilter === "live"
-                      ? "bg-primary text-black"
-                      : "bg-gray-700 text-white"
+                    activeFilter === "live" ? "bg-primary text-black" : "bg-gray-700 text-white"
                   }`}
                   onClick={() => setActiveFilter("live")}
                 >
@@ -117,9 +107,7 @@ export function Fixtures({
                   <span>Live</span>
                   <Badge
                     className={
-                      activeFilter === "live"
-                        ? "bg-black text-white text-xs"
-                        : "bg-gray-600 text-white text-xs"
+                      activeFilter === "live" ? "bg-black text-white text-xs" : "bg-gray-600 text-white text-xs"
                     }
                   >
                     {liveMatches.length}
@@ -127,9 +115,7 @@ export function Fixtures({
                 </div>
                 <div
                   className={`flex items-center gap-2 px-2 md:px-4 py-2 rounded-lg text-sm cursor-pointer ${
-                    activeFilter === "favorites"
-                      ? "bg-primary text-black"
-                      : "bg-gray-700 text-white"
+                    activeFilter === "favorites" ? "bg-primary text-black" : "bg-gray-700 text-white"
                   }`}
                   onClick={() => setActiveFilter("favorites")}
                 >
@@ -137,9 +123,7 @@ export function Fixtures({
                   <span>Favorites</span>
                   <Badge
                     className={
-                      activeFilter === "favorites"
-                        ? "bg-black text-white text-xs"
-                        : "bg-gray-600 text-white text-xs"
+                      activeFilter === "favorites" ? "bg-black text-white text-xs" : "bg-gray-600 text-white text-xs"
                     }
                   >
                     {favoriteMatches.length}
@@ -150,9 +134,7 @@ export function Fixtures({
             <div className="space-y-6">
               {Object.keys(filteredMatches).length === 0 ? (
                 <div className="flex justify-center items-center py-12">
-                  <p className="text-gray-400 text-lg">
-                    No {activeFilter} matches found for this date
-                  </p>
+                  <p className="text-gray-400 text-lg">No {activeFilter} matches found for this date</p>
                 </div>
               ) : (
                 Object.entries(filteredMatches).map(([league, matches]) => (
