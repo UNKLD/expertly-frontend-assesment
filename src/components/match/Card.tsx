@@ -99,20 +99,20 @@ export function MatchCard({ match, showTime = false, onFavoriteChange }: MatchCa
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <MoreVertical className="w-5 h-5 text-gray-400 hover:text-white cursor-pointer" />
+            <MoreVertical className="text-gray-400 hover:text-white cursor-pointer" />
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
+          <DropdownMenuContent align="end" className="w-max">
             <DropdownMenuItem onClick={toggleFavorite}>
               {isFavorite ? (
-                <>
+                <div className="flex items-center gap-1 w-full">
                   <HeartOff className="w-4 h-4" />
-                  Remove from Favorites
-                </>
+                  <span className="text-xs">Remove from Favorites</span>
+                </div>
               ) : (
-                <>
+                <div className="flex items-center gap-1 w-full">
                   <Heart className="w-4 h-4" />
-                  Add to Favorites
-                </>
+                  <span className="text-xs">Add to Favorites</span>
+                </div>
               )}
             </DropdownMenuItem>
           </DropdownMenuContent>
