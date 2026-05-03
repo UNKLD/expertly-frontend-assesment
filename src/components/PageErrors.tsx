@@ -7,8 +7,13 @@ const PageErrors = ({ err, onRetry }: PageErrorProps) => {
     <div className="bg-background text-white flex justify-center items-center">
       <div className="max-w-4xl mx-auto px-4 py-6 gap-10 flex flex-col justify-center items-center">
         <img src="/assets/server.png" alt="" className="mt-10 h-2/3 w-2/3" />
-        <p className="text-lg font-bold text-destructive">Error loading this page: {err}</p>
-        <Button onClick={onRetry} className="bg-muted hover:bg-secondary text-white rounded-full cursor-pointer">
+        <p className="text-lg font-bold text-destructive">
+          Error loading this page: {err}
+        </p>
+        <Button
+          onClick={onRetry}
+          className="bg-muted hover:bg-secondary text-white rounded-full cursor-pointer"
+        >
           <RotateCcw />
           Retry
         </Button>

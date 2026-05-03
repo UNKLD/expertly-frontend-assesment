@@ -128,7 +128,10 @@ const useMatchDetail = (matchId: string): UseMatchDetailResult => {
         } catch (err) {
           if (!mountedRef.current) return;
 
-          if ((err as HookError)?.name === "CanceledError" || (err as HookError)?.code === "ERR_CANCELED") {
+          if (
+            (err as HookError)?.name === "CanceledError" ||
+            (err as HookError)?.code === "ERR_CANCELED"
+          ) {
             return;
           }
 

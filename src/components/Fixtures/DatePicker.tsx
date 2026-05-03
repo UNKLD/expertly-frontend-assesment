@@ -9,7 +9,12 @@ export const DatePicker = ({ currentDate, setCurrentDate }: DatePickerProps) => 
       <PopoverTrigger asChild>
         <CalendarDays className="w-10 h-10 md:w-5 md:h-5 text-primary md:text-white cursor-pointer hover:text-white/80" />
       </PopoverTrigger>
-      <PopoverContent className="w-auto overflow-hidden p-0" align="end" alignOffset={-8} sideOffset={10}>
+      <PopoverContent
+        className="w-auto overflow-hidden p-0"
+        align="end"
+        alignOffset={-8}
+        sideOffset={10}
+      >
         <Calendar
           mode="single"
           selected={currentDate}

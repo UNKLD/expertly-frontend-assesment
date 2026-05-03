@@ -10,7 +10,10 @@ import type {
 import { MATCH_EVENTS_DAY } from "@/lib/data/constant-api-path";
 import type { HookError } from "@/types";
 
-const useFetchLiveMatches = (sport: string = "Soccer", refreshInterval: number = 20000): UseFetchMatchesResult => {
+const useFetchLiveMatches = (
+  sport: string = "Soccer",
+  refreshInterval: number = 20000,
+): UseFetchMatchesResult => {
   const [matches, setMatches] = useState<NormalizedMatch[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -104,7 +107,10 @@ const useFetchLiveMatches = (sport: string = "Soccer", refreshInterval: number =
       } catch (err) {
         if (!mountedRef.current) return;
 
-        if ((err as HookError)?.name === "CanceledError" || (err as HookError)?.code === "ERR_CANCELED") {
+        if (
+          (err as HookError)?.name === "CanceledError" ||
+          (err as HookError)?.code === "ERR_CANCELED"
+        ) {
           return;
         }
 

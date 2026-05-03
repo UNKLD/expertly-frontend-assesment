@@ -133,7 +133,11 @@ export function Header() {
             </PopoverContent>
           </Popover>
           <div className="bg-background/20 rounded-full p-2 hidden md:block">
-            <img src="/assets/united-kingdom.png" alt="globe" className="md:w-8 md:h-8" />
+            <img
+              src="/assets/united-kingdom.png"
+              alt="globe"
+              className="md:w-8 md:h-8 min-w-8 min-h-8"
+            />
           </div>
           <div
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -145,7 +149,7 @@ export function Header() {
       </div>
 
       {mobileMenuOpen && (
-        <nav className="xl:hidden border-t border-primary/20 bg-primary/50 backdrop-blur absolute top-full left-0 right-0">
+        <nav className="xl:hidden border-t border-primary/20 bg-muted absolute top-full left-0 right-0">
           <div className="flex flex-col gap-2 px-4 py-3">
             {navigationItems.map((item) => (
               <Link

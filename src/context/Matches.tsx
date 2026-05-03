@@ -23,7 +23,10 @@ export const MatchesProvider = ({ children }: { children: ReactNode }) => {
   const countryFilteredMatches = selectedCountry
     ? Object.fromEntries(
         Object.entries(allMatches)
-          .map(([league, matches]) => [league, matches.filter((match) => match.country === selectedCountry.name)])
+          .map(([league, matches]) => [
+            league,
+            matches.filter((match) => match.country === selectedCountry.name),
+          ])
           .filter(([, matches]) => matches.length > 0),
       )
     : allMatches;

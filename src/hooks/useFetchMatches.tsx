@@ -10,7 +10,10 @@ import type {
 } from "@/types/match";
 import type { HookError } from "@/types";
 
-const useFetchMatches = (date: string, sport: string = "Soccer"): UseFetchMatchesResult => {
+const useFetchMatches = (
+  date: string,
+  sport: string = "Soccer",
+): UseFetchMatchesResult => {
   const [matches, setMatches] = useState<NormalizedMatch[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -37,7 +40,8 @@ const useFetchMatches = (date: string, sport: string = "Soccer"): UseFetchMatche
   const normalizeStatus = (status: string, matchDate: string): MatchStatus => {
     const lowerStatus = status.toLowerCase();
     const today = new Date();
-    const isToday = new Date(`${matchDate}T00:00:00`).toDateString() === today.toDateString();
+    const isToday =
+      new Date(`${matchDate}T00:00:00`).toDateString() === today.toDateString();
     if (lowerStatus.includes("finished") || lowerStatus.includes("ft")) return "finished";
     if (
       lowerStatus.includes("live") ||
@@ -114,7 +118,10 @@ const useFetchMatches = (date: string, sport: string = "Soccer"): UseFetchMatche
         } catch (err) {
           if (!mountedRef.current) return;
 
-          if ((err as HookError)?.name === "CanceledError" || (err as HookError)?.code === "ERR_CANCELED") {
+          if (
+            (err as HookError)?.name === "CanceledError" ||
+            (err as HookError)?.code === "ERR_CANCELED"
+          ) {
             return;
           }
 

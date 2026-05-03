@@ -8,7 +8,11 @@ function getEventIcon(eventType?: string, card?: string) {
     case "subst":
       return <Repeat2 className="w-5 h-5 text-primary" />;
     case "card":
-      return <div className={`w-4 h-4  ${card === "Yellow Card" ? "bg-yellow-200" : "bg-red-500"}`} />;
+      return (
+        <div
+          className={`w-4 h-4  ${card === "Yellow Card" ? "bg-yellow-200" : "bg-red-500"}`}
+        />
+      );
     case "pass":
       return <UserCheck className="w-5 h-5" />;
     case "corner":
@@ -22,12 +26,19 @@ function getEventIcon(eventType?: string, card?: string) {
 
 export default function EventTimeline({ events }: EventTimelineProps) {
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       {events.map((event, idx) => (
-        <div key={idx} className="items-center justify-center gap-9 py-2 grid grid-cols-3">
-          <div className="flex items-center justify-end gap-3">
-            {event.isHome && event.homePlayer && <p className="text-xs ">{event.homePlayer}</p>}
-            {event.isHome && event.eventType && getEventIcon(event.eventType, event?.detail)}
+        <div
+          key={idx}
+          className="grid grid-cols-3 items-center justify-center gap-4 md:gap-9 py-2"
+        >
+          <div className="flex items-center justify-end gap-1 md:gap-3 w-full">
+            {event.isHome && event.homePlayer && (
+              <span className="text-xs">{event.homePlayer}</span>
+            )}
+            {event.isHome && event.eventType && (
+              <div className="grow"> {getEventIcon(event.eventType, event?.detail)}</div>
+            )}
           </div>
 
           <div className="flex flex-col items-center">
@@ -42,7 +53,9 @@ export default function EventTimeline({ events }: EventTimelineProps) {
           </div>
 
           <div className="flex items-center justify-start gap-3">
-            {!event.isHome && event.eventType && getEventIcon(event.eventType, event?.detail)}
+            {!event.isHome && event.eventType && (
+              <div className="grow"> {getEventIcon(event.eventType, event?.detail)}</div>
+            )}
             {event.awayPlayer && (
               <>
                 <p className="text-sm">{event.awayPlayer}</p>
