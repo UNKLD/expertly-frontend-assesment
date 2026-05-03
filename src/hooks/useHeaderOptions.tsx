@@ -136,7 +136,7 @@ const useHeaderOptions = (): UseHeaderOptionsResult => {
       mountedRef.current = false;
       clearAbort();
     };
-  }, [performFetchWithRetries, clearAbort]);
+  }, []);
 
   return { data, loading, error, refetch, retry };
 };

@@ -41,7 +41,7 @@ export function MatchDetails() {
   const awayCardCounts = getCardCounts(awayCards);
 
   return (
-    <div className="bg-background min-h-screen text-white">
+    <div className="bg-background text-white">
       {loading ? (
         <div className="max-w-4xl mx-auto px-4 py-6">
           <div className="space-y-6">
@@ -50,7 +50,7 @@ export function MatchDetails() {
           </div>
         </div>
       ) : (
-        <div className="max-w-4xl mx-auto px-4 py-6">
+        <div className="max-w-4xl mx-auto px-4 py-4">
           <div className="bg-muted px-6 pt-4 rounded-lg">
             <div
               className="flex items-center gap-3 mb-6"
@@ -88,9 +88,7 @@ export function MatchDetails() {
                   <span className="text-sm md:text-lg font-semibold">{matchDetail?.homeTeam?.name}</span>
                 </div>
                 <div className="text-center">
-                  <div className="text-muted-foreground text-sm mb-2">
-                    {matchDetail?.date && formatDate(matchDetail?.date)}
-                  </div>
+                  <div className="text-gray-300 text-sm mb-2">{matchDetail?.date && formatDate(matchDetail?.date)}</div>
                   <div className="lg:text-4xl text-xl font-bold mb-2">
                     <span>{matchDetail?.status !== "Not Started" && matchDetail?.homeScore}</span>
                     <span className="mx-2">{matchDetail?.status === "Not Started" ? "vs" : "-"}</span>
@@ -167,7 +165,7 @@ export function MatchDetails() {
                 {matchDetail?.status === "Not Started" ? (
                   <div className="flex flex-col justify-center items-center">
                     <span className="text-gray-400 text-sm mb-4">
-                      {`Match schduled for ${matchDetail?.date} at ${matchDetail?.time}`}
+                      {`Match scheduled for ${matchDetail?.date} at ${matchDetail?.time}`}
                     </span>
                   </div>
                 ) : (
@@ -178,7 +176,7 @@ export function MatchDetails() {
                       </div>
                     )}
                     <EventTimeline events={timelineEvents} />
-                    <div className="flex justify-center items-center">
+                    <div className="flex justify-center items-center mt-3">
                       <span className="text-sm text-muted-foreground whitespace-nowrap px-4">
                         {`Kick Off - ${matchDetail?.time.slice(0, 5)}`}
                       </span>

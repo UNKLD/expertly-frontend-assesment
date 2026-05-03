@@ -45,14 +45,10 @@ export const DateSlider = () => {
     const isToday = date.toDateString() === today.toDateString();
 
     if (isToday && isCenter) {
-      return `Today ${date.getDate()} ${date
-        .toLocaleString("en-US", { month: "short" })
-        .toUpperCase()}`;
+      return `Today ${date.getDate()} ${date.toLocaleString("en-US", { month: "short" }).toUpperCase()}`;
     }
 
-    return `${date
-      .toLocaleString("en-US", { weekday: "short" })
-      .toUpperCase()} ${date.getDate()} ${date
+    return `${date.toLocaleString("en-US", { weekday: "short" }).toUpperCase()} ${date.getDate()} ${date
       .toLocaleString("en-US", { month: "short" })
       .toUpperCase()}`;
   };
@@ -63,22 +59,12 @@ export const DateSlider = () => {
   return (
     <>
       <div className="hidden md:flex items-center justify-between gap-4 mb-8 bg-muted py-5 rounded-lg px-4">
-        <ChevronLeft
-          onClick={handlePrevDay}
-          className="w-5 h-5 text-gray-400 cursor-pointer hover:text-white"
-        />
+        <ChevronLeft onClick={handlePrevDay} className="w-5 h-5 text-gray-400 cursor-pointer hover:text-white" />
         <div className="flex items-center gap-2">
-          <DatePicker
-            currentDate={currentDate}
-            setCurrentDate={setCurrentDate}
-            setOpen={() => {}}
-          />
+          <DatePicker currentDate={currentDate} setCurrentDate={setCurrentDate} setOpen={() => {}} />
           <span className="font-medium">{formatDateForDisplay(currentDate)}</span>
         </div>
-        <ChevronRight
-          onClick={handleNextDay}
-          className="w-5 h-5 text-gray-400 cursor-pointer hover:text-white"
-        />
+        <ChevronRight onClick={handleNextDay} className="w-5 h-5 text-gray-400 cursor-pointer hover:text-white" />
       </div>
 
       <div className="md:hidden flex justify-between items-center mb-6 text-sm px-8 text-center">
@@ -87,8 +73,7 @@ export const DateSlider = () => {
           const isFarEdge = index === 0 || index === 4;
           let className = "cursor-pointer ";
           if (isCenter) {
-            className +=
-              "text-primary font-medium backdrop-blur bg-primary/20 px-3 py-2 rounded-lg";
+            className += "text-primary font-medium backdrop-blur bg-primary/20 px-3 py-2 rounded-lg";
           } else if (isFarEdge) {
             className += "text-gray-600";
           } else {
@@ -107,11 +92,7 @@ export const DateSlider = () => {
             </span>
           );
         })}
-        <DatePicker
-          currentDate={currentDate}
-          setCurrentDate={setCurrentDate}
-          setOpen={() => {}}
-        />
+        <DatePicker currentDate={currentDate} setCurrentDate={setCurrentDate} setOpen={() => {}} />
       </div>
     </>
   );

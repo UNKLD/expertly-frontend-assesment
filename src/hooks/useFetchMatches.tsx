@@ -34,8 +34,10 @@ const useFetchMatches = (date: string, sport: string = "Soccer"): UseFetchMatche
     }
   }, []);
 
-  const normalizeStatus = (status: string): MatchStatus => {
+  const normalizeStatus = (status: string, matchDate: string): MatchStatus => {
     const lowerStatus = status.toLowerCase();
+    const today = new Date();
+    const isToday = new Date(`${matchDate}T00:00:00`).toDateString() === today.toDateString();
     if (lowerStatus.includes("finished") || lowerStatus.includes("ft")) return "finished";
     if (
       lowerStatus.includes("live") ||
@@ -43,7 +45,7 @@ const useFetchMatches = (date: string, sport: string = "Soccer"): UseFetchMatche
       lowerStatus.includes("1h") ||
       lowerStatus.includes("2h")
     )
-      return "live";
+      return isToday ? "live" : "scheduled";
     return "scheduled";
   };
 
@@ -74,7 +76,7 @@ const useFetchMatches = (date: string, sport: string = "Soccer"): UseFetchMatche
           },
           homeScore: parseInt(event.intHomeScore || "0"),
           awayScore: parseInt(event.intAwayScore || "0"),
-          status: normalizeStatus(event.strStatus),
+          status: normalizeStatus(event.strStatus, event.dateEvent),
           date: event.dateEvent,
           time: event.strTime,
           league: event.strLeague,
@@ -165,7 +167,7 @@ const useFetchMatches = (date: string, sport: string = "Soccer"): UseFetchMatche
         intervalRef.current = null;
       }
     };
-  }, [date, sport, performFetchWithRetries, clearAbort]);
+  }, [date, sport]);
 
   useEffect(() => {
     const hasLiveMatches = matches.some((match) => match.status === "live");
@@ -189,7 +191,7 @@ const useFetchMatches = (date: string, sport: string = "Soccer"): UseFetchMatche
         intervalRef.current = null;
       }
     };
-  }, [matches, performFetchWithRetries]);
+  }, [matches]);
 
   const groupedMatches = matches.reduce((acc, match) => {
     if (!acc[match.league]) {

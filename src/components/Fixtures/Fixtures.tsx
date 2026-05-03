@@ -140,7 +140,7 @@ export function Fixtures({
                 Object.entries(filteredMatches).map(([league, matches]) => (
                   <div key={league} className="bg-muted px-6 py-4 rounded-lg">
                     <div className="flex items-center justify-between mb-4">
-                      <h2 className="text-lg font-medium">{league}</h2>
+                      <h2 className="text-lg">{league}</h2>
                     </div>
 
                     <div className="space-y-3">

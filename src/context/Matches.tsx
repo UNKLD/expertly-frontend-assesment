@@ -11,7 +11,7 @@ export const MatchesProvider = ({ children }: { children: ReactNode }) => {
   const [selectedLeague, setSelectedLeague] = useState<HeaderOption | null>(null);
   const [selectedCountry, setSelectedCountry] = useState<HeaderOption | null>(null);
 
-  const formattedDate = currentDate.toISOString().split("T")[0];
+  const formattedDate = currentDate.toLocaleDateString("en-CA");
   const {
     groupedMatches: allMatches,
     loading,
@@ -23,10 +23,7 @@ export const MatchesProvider = ({ children }: { children: ReactNode }) => {
   const countryFilteredMatches = selectedCountry
     ? Object.fromEntries(
         Object.entries(allMatches)
-          .map(([league, matches]) => [
-            league,
-            matches.filter((match) => match.country === selectedCountry.name),
-          ])
+          .map(([league, matches]) => [league, matches.filter((match) => match.country === selectedCountry.name)])
           .filter(([, matches]) => matches.length > 0),
       )
     : allMatches;

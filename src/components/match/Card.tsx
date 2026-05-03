@@ -3,12 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { cn } from "@/lib/utils";
 import type { MatchCardProps } from "@/types/match";
 import { useNavigate } from "react-router-dom";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { useEffect, useState } from "react";
 
 export function MatchCard({ match, showTime = false, onFavoriteChange }: MatchCardProps) {
@@ -54,9 +49,7 @@ export function MatchCard({ match, showTime = false, onFavoriteChange }: MatchCa
       case "finished":
         return <span className="px-2 py-1 text-destructive">FT</span>;
       default:
-        return showTime && match.time ? (
-          <span className="text-gray-400 text-sm">{match.time.slice(0, 5)}</span>
-        ) : null;
+        return showTime && match.time ? <span className="text-gray-400 text-sm">{match.time.slice(0, 5)}</span> : null;
     }
   };
 
@@ -73,7 +66,7 @@ export function MatchCard({ match, showTime = false, onFavoriteChange }: MatchCa
     >
       <div className="flex items-center justify-between gap-5">
         <div className="flex items-center gap-3 flex-1" onClick={handleClick}>
-          <div className="flex items-center gap-2 min-w-[60px]">{getStatusBadge()}</div>
+          <div className="flex items-center gap-2 min-w-15">{getStatusBadge()}</div>
 
           <div className="flex-1 space-y-2">
             <div className="flex items-center justify-between">
@@ -81,16 +74,12 @@ export function MatchCard({ match, showTime = false, onFavoriteChange }: MatchCa
                 <Avatar className="h-5 w-5">
                   <AvatarImage src={match.homeTeam.logo} alt={match.homeTeam.name} />
                   <AvatarFallback>
-                    <span className="text-white text-xs font-bold">
-                      {match.homeTeam.name.slice(0, 2)}
-                    </span>
+                    <span className="text-white text-xs font-bold">{match.homeTeam.name.slice(0, 2)}</span>
                   </AvatarFallback>
                 </Avatar>
                 <span className="text-white text-sm">{match.homeTeam.name}</span>
               </div>
-              <span className="text-white font-bold">
-                {match?.status !== "scheduled" && match.homeScore}
-              </span>
+              <span className="text-white font-bold">{match?.status !== "scheduled" && match.homeScore}</span>
             </div>
 
             <div className="flex items-center justify-between">
@@ -98,16 +87,12 @@ export function MatchCard({ match, showTime = false, onFavoriteChange }: MatchCa
                 <Avatar className="h-5 w-5">
                   <AvatarImage src={match.awayTeam.logo} alt={match.awayTeam.name} />
                   <AvatarFallback>
-                    <span className="text-white text-xs font-bold">
-                      {match.homeTeam.name.slice(0, 2)}
-                    </span>
+                    <span className="text-white text-xs font-bold">{match.homeTeam.name.slice(0, 2)}</span>
                   </AvatarFallback>
                 </Avatar>
                 <span className="text-white text-sm">{match.awayTeam.name}</span>
               </div>
-              <span className="text-white font-bold">
-                {match?.status !== "scheduled" && match.awayScore}
-              </span>
+              <span className="text-white font-bold">{match?.status !== "scheduled" && match.awayScore}</span>
             </div>
           </div>
         </div>

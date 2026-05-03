@@ -149,7 +149,7 @@ const useFetchLiveMatches = (sport: string = "Soccer", refreshInterval: number =
         intervalRef.current = null;
       }
     };
-  }, [sport, refreshInterval, performFetch, clearAbort]);
+  }, [sport, refreshInterval]);
 
   const groupedMatches = matches.reduce((acc, match) => {
     if (!acc[match.league]) {

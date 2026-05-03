@@ -184,7 +184,7 @@ const useMatchDetail = (matchId: string): UseMatchDetailResult => {
         intervalRef.current = null;
       }
     };
-  }, [matchId, performFetchWithRetries, clearAbort]);
+  }, [matchId]);
 
   useEffect(() => {
     const isMatchDetailPage = window.location.pathname.includes("/match/");
@@ -207,7 +207,7 @@ const useMatchDetail = (matchId: string): UseMatchDetailResult => {
         intervalRef.current = null;
       }
     };
-  }, [matchDetail, performFetchWithRetries, isLiveMatch]);
+  }, [matchDetail]);
 
   return { matchDetail, loading, error, refetch, retry };
 };
