@@ -1,16 +1,20 @@
-import { UserCheck, Repeat2, Volleyball, Flag } from "lucide-react";
+import { UserCheck, Flag, ArrowUpDown } from "lucide-react";
 import { Badge } from "../ui/badge";
 import { cn } from "@/lib/utils";
 import type { EventTimelineProps } from "@/types/matchDetails";
+import ballIcon from "@/components/ui/icons/ball.svg";
+import arrowsIcon from "@/components/ui/icons/arrows.svg";
 
 function getEventIcon(eventType?: string, card?: string) {
   switch (eventType) {
     case "subst":
-      return <Repeat2 className="w-5 h-5 text-primary" />;
+      return (
+        <img src={arrowsIcon} alt="subst" className="w-5 h-5 text-primary" />
+      );
     case "card":
       return (
         <div
-          className={`w-4 h-4  ${card === "Yellow Card" ? "bg-yellow-200" : "bg-red-500"}`}
+          className={`w-4 h-4  ${card === "Yellow Card" ? "bg-yellow-300" : "bg-red-500"}`}
         />
       );
     case "pass":
@@ -18,7 +22,7 @@ function getEventIcon(eventType?: string, card?: string) {
     case "corner":
       return <Flag className="w-5 h-5" />;
     case "goal":
-      return <Volleyball className="w-5 h-5 text-primary" />;
+      return <img src={ballIcon} alt="goal" className="w-5 h-5 text-primary" />;
     default:
       return null;
   }
@@ -32,20 +36,22 @@ export default function EventTimeline({ events }: EventTimelineProps) {
           key={idx}
           className="grid grid-cols-3 items-center justify-center gap-4 md:gap-9 py-2"
         >
-          <div className="flex items-center justify-end gap-1 md:gap-3 w-full">
+          <div className="flex items-center justify-end gap-1 md:gap-3 min-w-full">
             {event.isHome && event.homePlayer && (
               <span className="text-xs">{event.homePlayer}</span>
             )}
-            {event.isHome && event.eventType && (
-              <div className="grow"> {getEventIcon(event.eventType, event?.detail)}</div>
-            )}
+            {event.isHome &&
+              event.eventType &&
+              getEventIcon(event.eventType, event?.detail)}
           </div>
 
           <div className="flex flex-col items-center">
             <Badge
               className={cn(
                 "text-sm text-primary-foreground whitespace-nowrap px-4",
-                event?.eventType === "goal" ? "bg-primary" : "bg-slate-600 text-white",
+                event?.eventType === "goal"
+                  ? "bg-primary"
+                  : "bg-slate-600 text-white",
               )}
             >
               {event.time}
@@ -53,9 +59,9 @@ export default function EventTimeline({ events }: EventTimelineProps) {
           </div>
 
           <div className="flex items-center justify-start gap-3">
-            {!event.isHome && event.eventType && (
-              <div className="grow"> {getEventIcon(event.eventType, event?.detail)}</div>
-            )}
+            {!event.isHome &&
+              event.eventType &&
+              getEventIcon(event.eventType, event?.detail)}
             {event.awayPlayer && (
               <>
                 <p className="text-sm">{event.awayPlayer}</p>
