@@ -63,7 +63,7 @@ export function MatchCard({ match, showTime = false, onFavoriteChange }: MatchCa
   return (
     <div
       className={cn(
-        "bg-muted p-4 hover:bg-muted-foreground/20 transition-colors border-b border-b-muted-foreground relative cursor-pointer",
+        "bg-card-foreground p-4 hover:bg-muted-foreground/10 transition-colors border-b border-b-muted-foreground relative cursor-pointer",
         match.status === "finished"
           ? "border-l-4 border-l-red-500 shadow-[inset_8px_0_12px_-8px_rgba(239,68,68,0.3)]"
           : match.status === "live"

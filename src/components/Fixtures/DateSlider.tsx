@@ -58,7 +58,7 @@ export const DateSlider = () => {
   };
   return (
     <>
-      <div className="hidden md:flex items-center justify-between gap-4 mb-8 bg-muted py-5 rounded-lg px-4">
+      <div className="hidden md:flex items-center justify-between gap-4 mb-8 bg-card-foreground py-5 rounded-lg px-4">
         <ChevronLeft
           onClick={handlePrevDay}
           className="w-5 h-5 text-gray-400 cursor-pointer hover:text-white"
@@ -69,7 +69,7 @@ export const DateSlider = () => {
             setCurrentDate={setCurrentDate}
             setOpen={() => {}}
           />
-          <span className="font-medium">{formatDateForDisplay(currentDate)}</span>
+          {formatDateForDisplay(currentDate)}
         </div>
         <ChevronRight
           onClick={handleNextDay}
@@ -77,7 +77,7 @@ export const DateSlider = () => {
         />
       </div>
 
-      <div className="md:hidden flex justify-between items-center mb-6 text-sm px-8 text-center">
+      <div className="md:hidden flex justify-between items-center mb-6 text-sm text-center">
         {getSurroundingDates(currentDate).map((date, index) => {
           const isCenter = index === 2;
           const isFarEdge = index === 0 || index === 4;

@@ -59,22 +59,22 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <div className="flex flex-row-reverse md:flex md:flex-row items-center gap-2">
-            <IconDropdown
-              options={data.sports}
-              selected={selectedSport}
-              onSelect={setSelectedSport}
-              fallbackIcon="/assets/soccer-ball.png"
-              fallbackText="SC"
-              loading={loading}
-            />
-
+          <div className="flex flex-row-reverse md:flex md:flex-row items-center gap-4">
             <IconDropdown
               options={data.countries}
               selected={selectedCountry}
               onSelect={setSelectedCountry}
               fallbackIcon="/assets/earth.png"
               fallbackText="GL"
+              loading={loading}
+            />
+
+            <IconDropdown
+              options={data.sports}
+              selected={selectedSport}
+              onSelect={setSelectedSport}
+              fallbackIcon="/assets/soccer-ball.png"
+              fallbackText="SC"
               loading={loading}
             />
           </div>

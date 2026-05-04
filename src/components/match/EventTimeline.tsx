@@ -1,4 +1,4 @@
-import { UserCheck, Flag, ArrowUpDown } from "lucide-react";
+import { UserCheck, Flag } from "lucide-react";
 import { Badge } from "../ui/badge";
 import { cn } from "@/lib/utils";
 import type { EventTimelineProps } from "@/types/matchDetails";
@@ -8,13 +8,11 @@ import arrowsIcon from "@/components/ui/icons/arrows.svg";
 function getEventIcon(eventType?: string, card?: string) {
   switch (eventType) {
     case "subst":
-      return (
-        <img src={arrowsIcon} alt="subst" className="w-5 h-5 text-primary" />
-      );
+      return <img src={arrowsIcon} alt="subst" className="w-5 h-5 text-primary" />;
     case "card":
       return (
         <div
-          className={`w-4 h-4  ${card === "Yellow Card" ? "bg-yellow-300" : "bg-red-500"}`}
+          className={`min-w-4 min-h-4  ${card === "Yellow Card" ? "bg-yellow-300" : "bg-red-500"}`}
         />
       );
     case "pass":
@@ -34,7 +32,7 @@ export default function EventTimeline({ events }: EventTimelineProps) {
       {events.map((event, idx) => (
         <div
           key={idx}
-          className="grid grid-cols-3 items-center justify-center gap-4 md:gap-9 py-2"
+          className="grid grid-cols-3 items-center gap-2 justify-center py-2"
         >
           <div className="flex items-center justify-end gap-1 md:gap-3 min-w-full">
             {event.isHome && event.homePlayer && (
@@ -45,17 +43,18 @@ export default function EventTimeline({ events }: EventTimelineProps) {
               getEventIcon(event.eventType, event?.detail)}
           </div>
 
-          <div className="flex flex-col items-center">
+          <div className="flex items-center gap-2">
+            <div className="border-t-2 border-gray-700 h-1 w-6" />
+
             <Badge
               className={cn(
                 "text-sm text-primary-foreground whitespace-nowrap px-4",
-                event?.eventType === "goal"
-                  ? "bg-primary"
-                  : "bg-slate-600 text-white",
+                event?.eventType === "goal" ? "bg-primary" : "bg-slate-600 text-white",
               )}
             >
               {event.time}
             </Badge>
+            <div className="border-t-2 border-gray-700 h-1 w-6" />
           </div>
 
           <div className="flex items-center justify-start gap-3">

@@ -83,12 +83,12 @@ export function Fixtures({
         ) : (
           <>
             {!isLive && (
-              <div className="flex justify-start gap-3 md:gap-4 mb-8">
+              <div className="flex items-center gap-3 md:gap-4 mb-8">
                 <div
                   className={`flex items-center gap-2 px-2 md:px-4 py-2 rounded-lg text-sm font-medium cursor-pointer ${
                     activeFilter === "all"
                       ? "bg-primary text-black"
-                      : "bg-gray-700 text-white"
+                      : "bg-card-foreground text-white"
                   }`}
                   onClick={() => setActiveFilter("all")}
                 >
@@ -107,7 +107,7 @@ export function Fixtures({
                   className={`flex items-center gap-2 px-2 md:px-4 py-2 rounded-lg text-sm cursor-pointer ${
                     activeFilter === "live"
                       ? "bg-primary text-black"
-                      : "bg-gray-700 text-white"
+                      : "bg-card-foreground text-white"
                   }`}
                   onClick={() => setActiveFilter("live")}
                 >
@@ -127,7 +127,7 @@ export function Fixtures({
                   className={`flex items-center gap-2 px-2 md:px-4 py-2 rounded-lg text-sm cursor-pointer ${
                     activeFilter === "favorites"
                       ? "bg-primary text-black"
-                      : "bg-gray-700 text-white"
+                      : "bg-card-foreground text-white"
                   }`}
                   onClick={() => setActiveFilter("favorites")}
                 >
@@ -154,7 +154,7 @@ export function Fixtures({
                 </div>
               ) : (
                 Object.entries(filteredMatches).map(([league, matches]) => (
-                  <div key={league} className="bg-muted px-6 py-4 rounded-lg">
+                  <div key={league} className="bg-card-foreground px-6 py-4 rounded-lg">
                     <div className="flex items-center justify-between mb-4">
                       <h2 className="text-lg">{league}</h2>
                     </div>

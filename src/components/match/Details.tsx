@@ -55,7 +55,7 @@ export function MatchDetails() {
         </div>
       ) : (
         <div className="max-w-4xl mx-auto px-4 py-4">
-          <div className="bg-muted px-6 pt-4 rounded-lg">
+          <div className="bg-card-foreground px-6 pt-4 rounded-lg">
             <div
               className="flex items-center gap-3 mb-6"
               onClick={() => {
@@ -184,7 +184,7 @@ export function MatchDetails() {
             </nav>
           </div>
 
-          <div className="space-y-4 bg-muted rounded-lg p-6 cursor-pointer">
+          <div className="space-y-4 bg-card-foreground rounded-lg p-6 cursor-pointer">
             {activeTab === "events" && (
               <>
                 <h3 className="text-lg font-medium mb-4">Events</h3>
