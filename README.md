@@ -17,14 +17,14 @@ Follow these steps to get the project running locally.
 
 ### 1️⃣ Clone the repository
 
-```console
+```shell
 git clone https://github.com/UNKLD/expertly-frontend-assesment
 cd expertly-frontend-assesment
 ```
 
 ### 2️⃣ Install dependencies
 
-```console
+```shell
 npm install
 ```
 
@@ -38,13 +38,13 @@ VITE_BASE_URL=https://www.thesportsdb.com/api/v1/json/123
 
 ### 4️⃣ Run the development server
 
-```console
+```shell
 npm run dev
 ```
 
 ### 5️⃣ Build for production
 
-```console
+```shell
 npm run build
 ```
 
@@ -60,21 +60,9 @@ npm run build
 
 ---
 
-## 🛠️ Tech Stack
-
-- **Frontend Framework**: React 19.2.5
-- **Language**: TypeScript
-- **Build Tool**: Vite
-- **Styling**: Tailwind CSS 4.x
-- **UI Components**: Radix UI and Shadcn Ui
-- **Routing**: React Router DOM
-- **HTTP Client**: Axios
-- **Date Handling**: date-fns
-- **Icons**: Lucide React + Custom SVGs
-
 ---
 
-## 📱 Pages & Features
+## 📱 Pages
 
 - **Live** (`/`) - Real-time match updates
 - **Matches** (`/matches`) - Browse fixtures by date
@@ -86,6 +74,18 @@ npm run build
 - **Venues** (`/venues`) - Stadium information but currently not available
 
 ---
+
+## 🛠️ Tech Stack
+
+- **Frontend Framework**: React 19.2.5
+- **Language**: TypeScript
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS 4.x
+- **UI Components**: Radix UI and Shadcn Ui
+- **Routing**: React Router DOM
+- **HTTP Client**: Axios
+- **Date Handling**: date-fns
+- **Icons**: Lucide React + Custom SVGs
 
 ## 🚀 Available Scripts
 
