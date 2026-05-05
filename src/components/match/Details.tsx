@@ -195,7 +195,7 @@ export function MatchDetails() {
                     </span>
                   </div>
                 ) : (
-                  <div className="flex flex-col justify-center items-center">
+                  <div className="flex flex-col justify-center items-center w-full">
                     {matchDetail?.status === "Match Finished" && (
                       <div className="text-center text-gray-400 text-sm mb-4">
                         Fulltime {`${matchDetail?.homeScore} - ${matchDetail?.awayScore}`}
